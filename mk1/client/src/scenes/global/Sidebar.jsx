@@ -25,20 +25,23 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 	);
 };
 
-const Sidebar = ({ mainData, data }) => {
+function Sidebar({ setCWActivity, mainData, data }) {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const [selected, setSelected] = useState("Dashboard");
 
-
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log('asjdhaksjdhaksjdhajkh')
-	console.log(mainData)
+	// if (typeof setCWActivity === 'undefined') {
+	// 	console.error("setCWActivity is not a function");
+	// }
+	//
+	// function setChannels(result) {
+	// 	if (typeof setCWActivity === 'function') {
+	// 		setCWActivity(result);
+	// 	} else {
+	// 		console.error("setCWActivity is not a function");
+	// 	}
+	// }
 
 	return (
 		<Box
@@ -86,22 +89,47 @@ const Sidebar = ({ mainData, data }) => {
 					</MenuItem>
 
 
+					{!isCollapsed && (
+						<Box mb="25px">
+							<Box display="flex" justifyContent="center" alignItems="center">
+								<img
+									alt="profile-user"
+									width="100px"
+									height="100px"
+									src={`../../assets/user.png`}
+									style={{ cursor: "pointer", borderRadius: "50%" }}
+								/>
+							</Box>
+							<Box textAlign="center">
+								<Typography
+									variant="h2"
+									color={colors.grey[100]}
+									fontWeight="bold"
+									sx={{ m: "10px 0 0 0" }}
+								>
+									Ed Roh
+								</Typography>
+							</Box>
+						</Box>
+					)}
+
 					<Box paddingLeft={isCollapsed ? undefined : "10%"}>
 						{(mainData) ? (
-								mainData.map((channels) => {
+							mainData.map((channels) => (
+								<div onClick={() => setCWActivity(mainData.indexOf(channels))}>
 									<Item
 										title={channels.name}
-										to="/"
 										icon={<HomeOutlinedIcon />}
 										selected={selected}
 										setSelected={setSelected}
 									/>
-								})
+								</div>
+							))
 						) : (<></>)}
 					</Box>
 				</Menu>
 			</ProSidebar>
-		</Box>
+		</Box >
 	);
 };
 

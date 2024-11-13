@@ -9,7 +9,7 @@ import { ColorModeContext, useMode } from "../../theme";
 
 import ActivityComponent from './activity_component';
 
-const Activity = ({ mainData, setMainData, data, setData, user, setUser }) => {
+const Activity = ({ setCWActivity, mainData, setMainData, data, setData, user, setUser }) => {
 	const [theme, colorMode] = useMode();
 	const [isSidebar, setIsSidebar] = useState(true);
 
@@ -20,7 +20,7 @@ const Activity = ({ mainData, setMainData, data, setData, user, setUser }) => {
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
 					<div className="app">
-						<Sidebar mainData={mainData} data={data} isSidebar={isSidebar} />
+						<Sidebar setCWActivity={setCWActivity} mainData={mainData} data={data} isSidebar={isSidebar} />
 						<main className="content">
 							<Topbar setIsSidebar={setIsSidebar} />
 							<ActivityComponent mainData={mainData} setMainData={setMainData} data={data} setData={setData} />

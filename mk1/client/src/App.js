@@ -3,11 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import Activity from "./scenes/activity";
 import Login from "./scenes/login";
 import Home from "./scenes/home";
+import { type } from '@testing-library/user-event/dist/type';
 
 function App() {
 	let [data, setData] = useState(null);
-	let [mainData, setMainData] = useState(0);
+	let [mainData, setMainData] = useState(null);
 	let [user, setUser] = useState(null);
+	let [cwActivty, setCWActivity] = useState(null);
 
 	useEffect(() => {
 		fetch('/data.json')  // Adjust the path if necessary
@@ -25,11 +27,17 @@ function App() {
 			.catch(error => console.error('Error fetching data:', error));
 	}, []);
 
+	useEffect(() => {
+		if (mainData && cwActivty) {
+			setData(mainData[cwActivty].data)
+		}
+	}, [cwActivty, mainData]);
+
 
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/activity" element={<Activity mainData={mainData} setMainData={setMainData} data={data} setData={setData} user={user} setUser={setUser} />} />
+			<Route path="/activity"  element={<Activity setCWActivity={setCWActivity} mainData={mainData} setMainData={setMainData} data={data} setData={setData} user={user} setUser={setUser} />} />
 			{/* <Route path="/login" element={<Login />} /> */}
 		</Routes>
 	);

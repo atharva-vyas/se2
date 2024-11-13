@@ -10,15 +10,16 @@ def random_time_in_day(date):
 tempArr = []
 def main():
     start_epoch = 1699654639
-    end_epoch = 1731277039
+    end_epoch = int(time.time())
+
 
     current_date = datetime.fromtimestamp(start_epoch).replace(hour=0, minute=0, second=0, microsecond=0)
     end_date = datetime.fromtimestamp(end_epoch).replace(hour=23, minute=59, second=59, microsecond=999999)
 
     while current_date <= end_date:
         
-        maxHours_perDay = 7
-        inbetween = [0, 5]
+        maxHours_perDay = 5
+        inbetween = [650, 1500]
         print("==========================================================")
         print("==========================================================")
         print("==========================================================")
@@ -42,6 +43,23 @@ def main():
         file.write('\n')
 
     print("Data has been written to output.json")
+
+
+    file_name = 'output.json'
+
+        # Read the data from the file
+    with open(file_name, 'r') as file:
+        data = json.load(file)
+
+    # Sort the data based on the 'epoch' key
+    sorted_data = sorted(data, key=lambda x: x['epoch'])
+
+    # Write the sorted data back to the same file
+    with open(file_name, 'w') as file:
+        json.dump(sorted_data, file, indent=2)
+
+    print(f"Data in {file_name} has been sorted based on epoch values.")
+
 
 if __name__ == "__main__":
     main()

@@ -670,7 +670,7 @@ const ActivityComponent = ({ mainData, setMainData, data, setData }) => {
 									transform="translate(-50%, -50%)"
 								>
 									<Typography
-										variant="h3"
+										variant="h5"
 										color={colors.greenAccent[500]}
 										align="center"
 									>
