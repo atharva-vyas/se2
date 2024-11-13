@@ -4,6 +4,7 @@ import './index.css'
 const axios = require('axios').default;
 
 function Login({ setUser }) {
+	let [userDB, setUserDB] = useState([])
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 

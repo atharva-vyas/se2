@@ -536,20 +536,37 @@ const ActivityComponent = ({ mainData, setMainData, data, setData }) => {
 						alignItems="center"
 						justifyContent="center"
 					>
-						<StatBox
-							title={cupsToday}
-							subtitle={data[1][0].title}
-							progress={Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100) / 100}
-							increase={(() => {
-								const percentage = Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100);
-								return (percentage >= 0 ? "+" : "") + percentage + "%";
-							})()}
-							icon={
-								<LocalDrinkIcon
-									sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-								/>
-							}
-						/>
+						{(graphVal[1].data[11]) ? (
+							<StatBox
+								title={cupsToday}
+								subtitle={data[1][0].title}
+								progress={Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100) / 100}
+								increase={(() => {
+									const percentage = Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100);
+									return (percentage >= 0 ? "+" : "") + percentage + "%";
+								})()}
+								icon={
+									<LocalDrinkIcon
+										sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+									/>
+								}
+							/>
+						) : (
+							<StatBox
+								title="No Data"
+								subtitle={data[1][0].title}
+								progress="No Data"
+								increase={(() => {
+									return ("No Data");
+								})()}
+								icon={
+									<LocalDrinkIcon
+										sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+									/>
+								}
+							/>
+						)}
+
 					</Box>
 					<Box
 						gridColumn="span 4"

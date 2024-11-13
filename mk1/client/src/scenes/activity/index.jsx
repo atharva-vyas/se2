@@ -20,7 +20,7 @@ const Activity = ({ setCWActivity, mainData, setMainData, data, setData, user, s
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
 					<div className="app">
-						<Sidebar setCWActivity={setCWActivity} mainData={mainData} data={data} isSidebar={isSidebar} />
+						<Sidebar setCWActivity={setCWActivity} setMainData={setMainData} mainData={mainData} data={data} isSidebar={isSidebar} />
 						<main className="content">
 							<Topbar setIsSidebar={setIsSidebar} />
 							<ActivityComponent mainData={mainData} setMainData={setMainData} data={data} setData={setData} />

@@ -67,22 +67,22 @@ function Home() {
 
 						<ul className={click ? 'nav-menu active' : 'nav-menu'}>
 							
-							<li className='nav-item'>
-								<Link
-									className='nav-links'
-									onClick={closeMobileMenu}
-								>
-									Contact
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link
-									className='nav-links'
-									onClick={closeMobileMenu}
-								>
-									Use Cases
-								</Link>
-							</li>
+							{/* <li className='nav-item'> */}
+							{/* 	<Link */}
+							{/* 		className='nav-links' */}
+							{/* 		onClick={closeMobileMenu} */}
+							{/* 	> */}
+							{/* 		Contact */}
+							{/* 	</Link> */}
+							{/* </li> */}
+							{/* <li className='nav-item'> */}
+							{/* 	<Link */}
+							{/* 		className='nav-links' */}
+							{/* 		onClick={closeMobileMenu} */}
+							{/* 	> */}
+							{/* 		Use Cases */}
+							{/* 	</Link> */}
+							{/* </li> */}
 
 							<li>
 								<Link
@@ -115,16 +115,16 @@ function Home() {
 								buttonStyle='btn--outline'
 								buttonSize='btn--large'
 							>
-								GET STARTED
+								GET STARTED NOW!
 							</Button>
 						</Link>
-						<Button
-							className='btns'
-							buttonStyle='btn--primary'
-							buttonSize='btn--large'
-						>
-							USE CASES
-						</Button>
+						{/* <Button */}
+						{/* 	className='btns' */}
+						{/* 	buttonStyle='btn--primary' */}
+						{/* 	buttonSize='btn--large' */}
+						{/* > */}
+						{/* 	USE CASES */}
+						{/* </Button> */}
 					</div>
 				</div>
 			</>
