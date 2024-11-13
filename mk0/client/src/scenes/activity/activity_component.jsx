@@ -22,6 +22,7 @@ const ActivityComponent = ({ data, setData }) => {
 	let [cupsToday, setCupsToday] = useState(null);
 	let [graphVal, setGraphVal] = useState(null);
 	let [graphVal0, setGraphVal0] = useState(null);
+	let [goal, setGoal] = useState(null);
 
 
 	useEffect(() => {
@@ -376,7 +377,7 @@ const ActivityComponent = ({ data, setData }) => {
 
 
 				let temp000 = { dailyRollingAvg: dailyRollingAvg(), weeklyRollingAvg: weeklyRollingAvg(), monthlyRollingAvg: monthlyRollingAvg() }
-				setGraphVal0(temp000)
+				// setGraphVal0(temp000)
 
 				let tempArr000 = [
 					{
@@ -414,15 +415,17 @@ const ActivityComponent = ({ data, setData }) => {
 			getCupsConsumed()
 			getStreak()
 			getAverge()
-			console.log(graphVal)
+			setGoal(data[0].goal)
 		}
 	}, [data]);
 
 
 	useEffect(() => {
 		console.log(graphVal)
+		if (graphVal) {
+			setGraphVal0(graphVal[0].data.reduce((acc, result) => acc + parseInt(result.y, 10), 0))
+		}
 	}, [graphVal])
-
 
 	function getLast14Days() {
 		const dates = [];
@@ -490,7 +493,7 @@ const ActivityComponent = ({ data, setData }) => {
 
 
 	return (
-		(data) ? (
+		(data && graphVal) ? (
 			<Box m="20px">
 				{/* HEADER */}
 				<Box display="flex" justifyContent="space-between" alignItems="center">
@@ -505,8 +508,12 @@ const ActivityComponent = ({ data, setData }) => {
 								fontWeight: "bold",
 								padding: "10px 20px",
 							}}
+							onClick={(() => {
+								let goalVal = prompt("Enter your new goal:")
+								setGoal(parseFloat(goalVal))
+							})}
 						>
-							Set Goal: 10
+							Set Goal: {goal}
 						</Button>
 					</Box>
 				</Box>
@@ -529,8 +536,11 @@ const ActivityComponent = ({ data, setData }) => {
 						<StatBox
 							title={cupsToday}
 							subtitle={data[1][0].title}
-							progress={data[1][0].graphVal}
-							increase="+14%"
+							progress={Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100) / 100}
+							increase={(() => {
+								const percentage = Math.round(Math.min(1, Math.max(0, cupsToday / parseFloat(graphVal[1].data[11].y))) * 100);
+								return (percentage >= 0 ? "+" : "") + percentage + "%";
+							})()}
 							icon={
 								<LocalDrinkIcon
 									sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -548,8 +558,11 @@ const ActivityComponent = ({ data, setData }) => {
 						<StatBox
 							title={streak}
 							subtitle={data[1][1].title}
-							progress={data[1][1].graphVal}
-							increase="+5%"
+							progress={Math.round(Math.min(1, Math.max(0, cupsToday / goal)) * 100) / 100}
+							increase={(() => {
+								const percentage = Math.round(Math.min(1, Math.max(0, cupsToday / goal)) * 100);
+								return (percentage >= 0 ? "+" : "") + percentage + "%";
+							})()}
 							icon={
 								<WhatshotIcon
 									sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -567,8 +580,11 @@ const ActivityComponent = ({ data, setData }) => {
 						<StatBox
 							title={average}
 							subtitle={data[1][2].title}
-							progress={data[1][2].graphVal}
-							increase="+43%"
+							progress={Math.round(Math.min(1, Math.max(0, average / goal)) * 100) / 100}
+							increase={(() => {
+								const percentage = Math.round(Math.min(1, Math.max(0, average / goal)) * 100);
+								return (percentage >= 0 ? "+" : "") + percentage + "%";
+							})()}
 							icon={
 								<DirectionsRunIcon
 									sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -603,8 +619,8 @@ const ActivityComponent = ({ data, setData }) => {
 									fontWeight="bold"
 									color={colors.greenAccent[500]}
 								>
-									{(graphVal) ? (
-										graphVal[0].data.reduce((acc, result) => acc + parseInt(result.y, 10), 0)
+									{(graphVal0) ? (
+										graphVal0
 									) : (<></>)}
 
 								</Typography>
@@ -639,10 +655,8 @@ const ActivityComponent = ({ data, setData }) => {
 							alignItems="center"
 							mt="25px"
 						>
-							{/* <ProgressCircle size="125" /> */}
 							<Box position="relative" display="inline-flex">
-								<ProgressCircle size="125" />
-								{/* Text inside Progress Circle */}
+								<ProgressCircle size="125" progress={Math.round(Math.min(1, Math.max(0, cupsToday / goal)) * 100) / 100} />
 								<Box
 									position="absolute"
 									top="50%"
@@ -653,11 +667,11 @@ const ActivityComponent = ({ data, setData }) => {
 									transform="translate(-50%, -50%)"
 								>
 									<Typography
-										variant="h3" // Adjust variant as needed
+										variant="h3"
 										color={colors.greenAccent[500]}
 										align="center"
 									>
-										{data[2][1].value}
+										{Math.round((cupsToday / goal + Number.EPSILON) * 100) / 100}
 									</Typography>
 								</Box>
 							</Box>

@@ -14,20 +14,20 @@ const Activity = ({ data, setData, user, setUser }) => {
 	const [isSidebar, setIsSidebar] = useState(true);
 
 	return (
-		(user)?(
-		<ColorModeContext.Provider value={colorMode}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<div className="app">
-					<Sidebar data={data} isSidebar={isSidebar} />
-					<main className="content">
-						<Topbar setIsSidebar={setIsSidebar} />
-						<ActivityComponent data={data} setData={setData} />
-					</main>
-				</div>
-			</ThemeProvider>
-		</ColorModeContext.Provider>
-	):(<Login setUser={setUser}/>)
+		(user) ? (
+			<ColorModeContext.Provider value={colorMode}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<div className="app">
+						<Sidebar data={data} isSidebar={isSidebar} />
+						<main className="content">
+							<Topbar setIsSidebar={setIsSidebar} />
+							<ActivityComponent data={data} setData={setData} />
+						</main>
+					</div>
+				</ThemeProvider>
+			</ColorModeContext.Provider>
+		) : (<Login setUser={setUser} />)
 	)
 };
 
