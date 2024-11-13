@@ -7,7 +7,7 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
-const Item = ({ mainData, title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	return (
@@ -25,11 +25,20 @@ const Item = ({ mainData, title, to, icon, selected, setSelected }) => {
 	);
 };
 
-const Sidebar = ({ data }) => {
+const Sidebar = ({ mainData, data }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const [selected, setSelected] = useState("Dashboard");
+
+
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log('asjdhaksjdhaksjdhajkh')
+	console.log(mainData)
 
 	return (
 		<Box
@@ -78,15 +87,17 @@ const Sidebar = ({ data }) => {
 
 
 					<Box paddingLeft={isCollapsed ? undefined : "10%"}>
-						{mainData.map((result) => {
-							<Item
-								title={result.name}
-								to="/"
-								icon={<HomeOutlinedIcon />}
-								selected={selected}
-								setSelected={setSelected}
-							/>
-						})}
+						{(mainData) ? (
+								mainData.map((channels) => {
+									<Item
+										title={channels.name}
+										to="/"
+										icon={<HomeOutlinedIcon />}
+										selected={selected}
+										setSelected={setSelected}
+									/>
+								})
+						) : (<></>)}
 					</Box>
 				</Menu>
 			</ProSidebar>

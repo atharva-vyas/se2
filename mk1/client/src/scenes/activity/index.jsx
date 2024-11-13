@@ -13,6 +13,7 @@ const Activity = ({ mainData, setMainData, data, setData, user, setUser }) => {
 	const [theme, colorMode] = useMode();
 	const [isSidebar, setIsSidebar] = useState(true);
 
+
 	return (
 		(user) ? (
 			<ColorModeContext.Provider value={colorMode}>
